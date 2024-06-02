@@ -17,7 +17,7 @@ data['Publisher'] = data['Publisher'].fillna(data['Publisher'].mode()[0])
 genre_sales = data.groupby('Genre')['Global_Sales'].sum().reset_index()
 
 # bar chart
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(10, 6))
 sns.barplot(x='Genre', y='Global_Sales', data=genre_sales)
 plt.title('Vendas Globais por Gênero')
 plt.xticks(rotation=45)
@@ -32,3 +32,23 @@ plt.pie(genre_sales['Global_Sales'], labels=genre_sales['Genre'], autopct='%1.1f
 plt.title('Distribuição Percentual das Vendas Globais por Gênero')
 plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 plt.show()
+
+
+
+# Tratar valores ausentes
+data['Year'].fillna(data['Year'].mode()[0], inplace=True)
+data['Publisher'].fillna(data['Publisher'].mode()[0], inplace=True)
+
+# Somar as vendas globais por ano
+year_sales = data.groupby('Year')['Global_Sales'].sum().reset_index()
+
+# Gráfico de linha
+plt.figure(figsize=(12, 6))
+sns.lineplot(x='Year', y='Global_Sales', data=year_sales)
+plt.title('Vendas Globais ao Longo do Tempo')
+plt.ylabel('Vendas Globais (milhões)')
+plt.xlabel('Ano')
+plt.grid(True)
+plt.show()
+
+
